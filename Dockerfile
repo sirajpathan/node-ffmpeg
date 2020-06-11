@@ -1,4 +1,4 @@
-FROM node:12 AS base
+FROM node:12-buster AS base
 MAINTAINER ahmet@cetin.info
 
 WORKDIR     /tmp/workdir
