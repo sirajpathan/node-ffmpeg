@@ -480,6 +480,25 @@ RUN \
         cp -r ${PREFIX}/share/ffmpeg /usr/local/share/ && \
         LD_LIBRARY_PATH=/usr/local/lib ffmpeg -buildconf
 
+RUN \
+        DIR=/tmp/libraw && \
+        mkdir -p ${DIR} && \
+        cd ${DIR} && \
+        curl -o LibRaw-0.21.2.tar.gz https://www.libraw.org/data/LibRaw-0.21.2.tar.gz && \
+        tar xzvf LibRaw-0.21.2.tar.gz && \
+        cd LibRaw-0.21.2 && \
+        autoreconf -fiv && \
+        ./configure --prefix=/usr    \
+        --enable-jpeg    \
+        --enable-jasper  \
+        --enable-lcms    \
+        --disable-static \
+        --docdir=/usr/share/doc/libraw-0.21.2 && \
+        make && \
+        make install && \
+        ldconfig && \
+        rm -rf ${DIR}
+	
 FROM        base AS release
 MAINTAINER  ahmet@cetin.info
 
